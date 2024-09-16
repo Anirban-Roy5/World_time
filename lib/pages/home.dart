@@ -10,6 +10,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Map data = {};
+  final player = AudioPlayer();
+
+  Future<void> playSound() async {
+    await player.play(AssetSource('USSR_National_Anthem.mp3'));
+  }
+
+  // @override
+  // void dispose() {
+  //   // Release all sources and dispose the player.
+  //   player.dispose();
+  //
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +32,13 @@ class _HomeState extends State<Home> {
 
     String bgImage = data['isDayTime'] ? 'day.png' : 'night.png' ;
     Color? statusbarColor = data['isDayTime'] ? Colors.blue: Colors.indigo[700];
+    Color? change_location_color = data['isDayTime'] ? Colors.deepPurpleAccent: Colors.grey[300];
+    if(data['flag'] == 'ussr.png'){
+      bgImage = 'USSR_Background.png';
+      statusbarColor = Colors.red;
+      change_location_color = Colors.grey[300];
+      playSound();
+    }
 
     print(bgImage); // checking
 
@@ -39,6 +59,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 TextButton.icon(
                   onPressed: () async { // Choose location button action
+                    await player.pause();
                     dynamic result = await Navigator.pushNamed(context, '/location');
                     setState(() {
                       data = {
@@ -52,7 +73,7 @@ class _HomeState extends State<Home> {
                   label: Text(
                     'Change Location',
                     style: TextStyle(
-                      color: Colors.grey[300],
+                      color: change_location_color,
                     ),
                   ),
                   icon: Icon(

@@ -42,7 +42,9 @@ class _LoadingState extends State<Loading> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 300,),
             SpinKitCubeGrid(
               color: Colors.white,
               size: 100.0,
@@ -51,6 +53,13 @@ class _LoadingState extends State<Loading> {
               'Loading...',
               style: TextStyle(
                 fontSize: 30.0,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 300,),
+            Text(
+              'Anirban',
+              style: TextStyle(
                 color: Colors.white,
               ),
             ),
